@@ -73,26 +73,7 @@ namespace ComputerGrarphics
 
         public static ColorModelCmyk ConvertToCmyk(ColorModelHls modelHls)
         {
-            var saturation = modelHls.Saturation / 100.0;
-            var lightness = modelHls.Lightness / 100.0;
-
-            double cyan, magenta, yellow, key;
-
-            double max = Math.Max(lightness, Math.Max(saturation, 1 - lightness));
-            key = 1 - max;
-
-            if (key == 1)                 /* раз k = 1, то цвет - черный */
-            {
-                cyan = magenta = yellow = 0;
-            }
-            else
-            {
-                cyan = (1 - lightness - key) / (1 - key);
-                magenta = (1 - saturation - key) / (1 - key);
-                yellow = (1 - Math.Max(lightness, saturation) - key) / (1 - key);
-            }
-
-            return new ColorModelCmyk((int)Math.Round(cyan * 100), (int)Math.Round(magenta * 100), (int)Math.Round(yellow * 100), (int)Math.Round(key * 100));
+            return ConvertToCmyk(ConvertToRgb(modelHls));
         }
 
         public static ColorModelHls ConvertToHls(ColorModelCmyk modelCmyk)

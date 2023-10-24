@@ -68,10 +68,9 @@
             down_S = new Label();
             down_L = new Label();
             down_H = new Label();
-            rgb = new CheckBox();
-            cmyk = new CheckBox();
-            hls = new CheckBox();
-            convert = new Button();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)selector).BeginInit();
             ((System.ComponentModel.ISupportInitialize)currentColor).BeginInit();
             ((System.ComponentModel.ISupportInitialize)RGB_red).BeginInit();
@@ -106,7 +105,8 @@
             selector.SizeMode = PictureBoxSizeMode.AutoSize;
             selector.TabIndex = 1;
             selector.TabStop = false;
-            selector.MouseDown += Selector_MouseDown;
+            selector.MouseClick += Selector_MouseClick;
+            selector.MouseLeave += Selector_MouseLeave;
             selector.MouseMove += Selector_MouseMove;
             // 
             // colorSelector
@@ -126,7 +126,7 @@
             input_red.Size = new Size(125, 27);
             input_red.TabIndex = 4;
             input_red.Text = "255";
-            input_red.Leave += Input_Red_Leave;
+            input_red.Leave += Input_red_Leave;
             // 
             // input_green
             // 
@@ -136,7 +136,7 @@
             input_green.Size = new Size(125, 27);
             input_green.TabIndex = 5;
             input_green.Text = "255";
-            input_green.Leave += Input_Green_Leave;
+            input_green.Leave += Input_green_Leave;
             // 
             // input_blue
             // 
@@ -146,7 +146,7 @@
             input_blue.Size = new Size(125, 27);
             input_blue.TabIndex = 6;
             input_blue.Text = "255";
-            input_blue.Leave += Input_Blue_Leave;
+            input_blue.Leave += Input_blue_Leave;
             // 
             // input_yellow
             // 
@@ -155,7 +155,7 @@
             input_yellow.Size = new Size(125, 27);
             input_yellow.TabIndex = 10;
             input_yellow.Text = "0";
-            input_yellow.Leave += Input_Yellow_Leave;
+            input_yellow.Leave += Input_yellow_Leave;
             // 
             // input_magenta
             // 
@@ -164,7 +164,7 @@
             input_magenta.Size = new Size(125, 27);
             input_magenta.TabIndex = 9;
             input_magenta.Text = "0";
-            input_magenta.Leave += Input_Magenta_Leave;
+            input_magenta.Leave += Input_magenta_Leave;
             // 
             // input_cyan
             // 
@@ -173,7 +173,7 @@
             input_cyan.Size = new Size(125, 27);
             input_cyan.TabIndex = 8;
             input_cyan.Text = "0";
-            input_cyan.Leave += Input_Cyan_Leave;
+            input_cyan.Leave += Input_cyan_Leave;
             // 
             // input_key
             // 
@@ -182,7 +182,7 @@
             input_key.Size = new Size(125, 27);
             input_key.TabIndex = 11;
             input_key.Text = "0";
-            input_key.Leave += Input_Key_Leave;
+            input_key.Leave += Input_key_Leave;
             // 
             // input_saturation
             // 
@@ -231,37 +231,40 @@
             // RGB_red
             // 
             RGB_red.AllowDrop = true;
-            RGB_red.Location = new Point(439, 239);
+            RGB_red.Location = new Point(439, 187);
             RGB_red.Maximum = 255;
             RGB_red.Name = "RGB_red";
             RGB_red.Size = new Size(125, 56);
             RGB_red.TabIndex = 18;
             RGB_red.Tag = "";
-            RGB_red.ValueChanged += RGB_red_ValueChanged;
+            RGB_red.Value = 255;
+            RGB_red.Scroll += RGB_red_Scroll;
             // 
             // RGB_green
             // 
-            RGB_green.Location = new Point(439, 301);
+            RGB_green.Location = new Point(439, 249);
             RGB_green.Maximum = 255;
             RGB_green.Name = "RGB_green";
             RGB_green.Size = new Size(125, 56);
             RGB_green.TabIndex = 19;
             RGB_green.Tag = "int";
-            RGB_green.ValueChanged += RGB_green_ValueChanged;
+            RGB_green.Value = 255;
+            RGB_green.Scroll += RGB_green_Scroll;
             // 
             // RGB_blue
             // 
-            RGB_blue.Location = new Point(439, 363);
+            RGB_blue.Location = new Point(439, 311);
             RGB_blue.Maximum = 255;
             RGB_blue.Name = "RGB_blue";
             RGB_blue.Size = new Size(125, 56);
             RGB_blue.TabIndex = 20;
             RGB_blue.Tag = "int";
-            RGB_blue.ValueChanged += RGB_blue_ValueChanged;
+            RGB_blue.Value = 255;
+            RGB_blue.Scroll += RGB_blue_Scroll;
             // 
             // CMYK_yellow
             // 
-            CMYK_yellow.Location = new Point(593, 363);
+            CMYK_yellow.Location = new Point(593, 311);
             CMYK_yellow.Maximum = 100;
             CMYK_yellow.Name = "CMYK_yellow";
             CMYK_yellow.Size = new Size(125, 56);
@@ -271,7 +274,7 @@
             // 
             // CMYK_magenta
             // 
-            CMYK_magenta.Location = new Point(593, 301);
+            CMYK_magenta.Location = new Point(593, 249);
             CMYK_magenta.Maximum = 100;
             CMYK_magenta.Name = "CMYK_magenta";
             CMYK_magenta.Size = new Size(125, 56);
@@ -281,7 +284,7 @@
             // 
             // CMYK_cyan
             // 
-            CMYK_cyan.Location = new Point(593, 239);
+            CMYK_cyan.Location = new Point(593, 187);
             CMYK_cyan.Maximum = 100;
             CMYK_cyan.Name = "CMYK_cyan";
             CMYK_cyan.Size = new Size(125, 56);
@@ -291,7 +294,7 @@
             // 
             // CMYK_key
             // 
-            CMYK_key.Location = new Point(593, 425);
+            CMYK_key.Location = new Point(593, 373);
             CMYK_key.Maximum = 100;
             CMYK_key.Name = "CMYK_key";
             CMYK_key.Size = new Size(125, 56);
@@ -301,7 +304,7 @@
             // 
             // HLS_saturation
             // 
-            HLS_saturation.Location = new Point(754, 363);
+            HLS_saturation.Location = new Point(754, 311);
             HLS_saturation.Maximum = 100;
             HLS_saturation.Name = "HLS_saturation";
             HLS_saturation.Size = new Size(125, 56);
@@ -311,17 +314,18 @@
             // 
             // HLS_lightness
             // 
-            HLS_lightness.Location = new Point(754, 301);
+            HLS_lightness.Location = new Point(754, 247);
             HLS_lightness.Maximum = 100;
             HLS_lightness.Name = "HLS_lightness";
             HLS_lightness.Size = new Size(125, 56);
             HLS_lightness.TabIndex = 26;
             HLS_lightness.Tag = "int";
+            HLS_lightness.Value = 100;
             HLS_lightness.Scroll += HLS_lightness_Scroll;
             // 
             // HLS_hue
             // 
-            HLS_hue.Location = new Point(754, 239);
+            HLS_hue.Location = new Point(754, 187);
             HLS_hue.Maximum = 360;
             HLS_hue.Name = "HLS_hue";
             HLS_hue.Size = new Size(125, 56);
@@ -456,60 +460,41 @@
             down_H.TabIndex = 35;
             down_H.Text = "H: 0";
             // 
-            // rgb
+            // label1
             // 
-            rgb.AutoSize = true;
-            rgb.Checked = true;
-            rgb.CheckState = CheckState.Checked;
-            rgb.Location = new Point(439, 4);
-            rgb.Name = "rgb";
-            rgb.Size = new Size(59, 23);
-            rgb.TabIndex = 34;
-            rgb.Text = "RGB";
-            rgb.UseVisualStyleBackColor = true;
-            rgb.CheckedChanged += rgb_CheckedChanged;
+            label1.AutoSize = true;
+            label1.Location = new Point(479, 11);
+            label1.Name = "label1";
+            label1.Size = new Size(37, 19);
+            label1.TabIndex = 38;
+            label1.Text = "RGB";
             // 
-            // cmyk
+            // label2
             // 
-            cmyk.AutoSize = true;
-            cmyk.Location = new Point(593, 4);
-            cmyk.Name = "cmyk";
-            cmyk.Size = new Size(72, 23);
-            cmyk.TabIndex = 35;
-            cmyk.Text = "CMYK";
-            cmyk.UseVisualStyleBackColor = true;
-            cmyk.CheckedChanged += cmyk_CheckedChanged;
+            label2.AutoSize = true;
+            label2.Location = new Point(624, 13);
+            label2.Name = "label2";
+            label2.Size = new Size(50, 19);
+            label2.TabIndex = 39;
+            label2.Text = "CMYK";
             // 
-            // hls
+            // label3
             // 
-            hls.AutoSize = true;
-            hls.Location = new Point(754, 4);
-            hls.Name = "hls";
-            hls.Size = new Size(58, 23);
-            hls.TabIndex = 36;
-            hls.Text = "HLS";
-            hls.UseVisualStyleBackColor = true;
-            hls.CheckedChanged += hls_CheckedChanged;
-            // 
-            // convert
-            // 
-            convert.Location = new Point(439, 188);
-            convert.Name = "convert";
-            convert.Size = new Size(440, 29);
-            convert.TabIndex = 37;
-            convert.Text = "convert";
-            convert.UseVisualStyleBackColor = true;
-            convert.Click += convert_Click;
+            label3.AutoSize = true;
+            label3.Location = new Point(787, 13);
+            label3.Name = "label3";
+            label3.Size = new Size(36, 19);
+            label3.TabIndex = 40;
+            label3.Text = "HLS";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(902, 567);
-            Controls.Add(convert);
-            Controls.Add(hls);
-            Controls.Add(cmyk);
-            Controls.Add(rgb);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(groupHLS);
             Controls.Add(groupCMYK);
             Controls.Add(groupRGB);
@@ -563,6 +548,8 @@
             PerformLayout();
         }
 
+
+
         #endregion
 
         private TextBox Red;
@@ -603,9 +590,8 @@
         private Label down_S;
         private Label down_L;
         private Label down_H;
-        private CheckBox rgb;
-        private CheckBox cmyk;
-        private CheckBox hls;
-        private Button convert;
+        private Label label1;
+        private Label label2;
+        private Label label3;
     }
 }
